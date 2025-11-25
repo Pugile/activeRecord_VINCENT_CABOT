@@ -17,7 +17,7 @@ public class DBConnection {
     private String password = "";
     private String serverName = "127.0.0.1";
     private String portNumber = "3306";
-    private String dbname = "testpersonne";
+    private static String dbname = "testpersonne";
     public static Connection instance;
     private DBConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -36,9 +36,10 @@ public class DBConnection {
         }
         return instance;
     }
-    public void setNomDB(String nomDB) throws SQLException, ClassNotFoundException {
-        if (!Objects.equals(nomDB, this.dbname)) {
-            this.dbname = nomDB;
+
+    public static void setNomDB(String nomDB) throws SQLException, ClassNotFoundException {
+        if (!Objects.equals(nomDB, dbname)) {
+            dbname = nomDB;
             instance = null;
         }
     }
