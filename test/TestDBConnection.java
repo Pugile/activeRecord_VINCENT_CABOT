@@ -21,7 +21,7 @@ public class TestDBConnection {
     public void testChangementBase() throws SQLException, ClassNotFoundException {
 
         Connection c1 = DBConnection.getConnection();
-        DBConnection.setNomDB("testpersonne2");
+        DBConnection.setNomDB("testpersonne2"); //J'ai créer une deuxième base de donnée pour tester cette méthode
         Connection c2 = DBConnection.getConnection();
 
         assertNotSame(c1, c2, "Après changement de nom de DB, l'instance devrait être nouvelle");
