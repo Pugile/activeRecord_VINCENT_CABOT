@@ -71,6 +71,67 @@ public class Personne {
         return personnes;
     }
 
+    public static void createTable() throws SQLException, ClassNotFoundException {
+        String SQL = "CREATE TABLE IF NOT EXISTS Personne ("
+                + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                + "nom VARCHAR(100) NOT NULL,"
+                + "prenom VARCHAR(100) NOT NULL"
+                + ");";
+        Connection connect = DBConnection.getConnection();
+
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.execute();
+    }
+
+    public static void deleteTable() throws SQLException, ClassNotFoundException {
+        String SQL = "DROP TABLE IF EXISTS Personne;";
+        Connection connect = DBConnection.getConnection();
+
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.execute();
+    }
+
+    public void delete() throws SQLException, ClassNotFoundException {
+        String SQL = "DELETE FROM Personne WHERE id = ?";
+        Connection connect = DBConnection.getConnection();
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.setInt(1, this.id);
+        prep.execute();
+        this.id = -1;
+    }
+
+    public void save() throws SQLException, ClassNotFoundException {
+        Connection connect = DBConnection.getConnection();
+        if (this.id == -1) {
+            saveNew();
+        } else {
+            update();
+        }
+    }
+
+    private void saveNew() throws SQLException, ClassNotFoundException {
+        String SQL = "INSERT INTO Personne (nom, prenom) VALUES (?, ?);";
+        Connection connect = DBConnection.getConnection();
+        PreparedStatement prep = connect.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
+        prep.setString(1, this.nom);
+        prep.setString(2, this.prenom);
+        prep.executeUpdate();
+        ResultSet rs = prep.getGeneratedKeys();
+        if (rs.next()) {
+            this.id = rs.getInt(1);
+        }
+    }
+
+    private void update() throws SQLException, ClassNotFoundException {
+        String SQL = "UPDATE Personne SET nom = ?, prenom = ? WHERE id = ?;";
+        Connection connect = DBConnection.getConnection();
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.setString(1, this.nom);
+        prep.setString(2, this.prenom);
+        prep.setInt(3, this.id);
+        prep.executeUpdate();
+    }
+
     public int getId() {
         return id;
     }
