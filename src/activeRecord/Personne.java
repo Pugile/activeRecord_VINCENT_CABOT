@@ -71,4 +71,24 @@ public class Personne {
         return personnes;
     }
 
+    public static void createTable() throws SQLException, ClassNotFoundException {
+        String SQL = "CREATE TABLE IF NOT EXISTS Personne ("
+                + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                + "nom VARCHAR(100) NOT NULL,"
+                + "prenom VARCHAR(100) NOT NULL"
+                + ");";
+        Connection connect = DBConnection.getConnection();
+
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.execute();
+    }
+
+    public static void deleteTable() throws SQLException, ClassNotFoundException {
+        String SQL = "DROP TABLE IF EXISTS Personne;";
+        Connection connect = DBConnection.getConnection();
+
+        PreparedStatement prep = connect.prepareStatement(SQL);
+        prep.execute();
+    }
+
 }
