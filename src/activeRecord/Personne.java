@@ -85,9 +85,13 @@ public class Personne {
 
     public static void deleteTable() throws SQLException, ClassNotFoundException {
         String SQL = "DROP TABLE IF EXISTS Personne;";
+        String SQL2 = "DROP TABLE IF EXISTS Film;";
         Connection connect = DBConnection.getConnection();
 
         PreparedStatement prep = connect.prepareStatement(SQL);
+        PreparedStatement prep2 = connect.prepareStatement(SQL2);
+
+        prep2.execute();
         prep.execute();
     }
 
