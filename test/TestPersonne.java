@@ -49,7 +49,7 @@ public class TestPersonne {
     }
 
     /**
-     * Test de la méthode testFindAll qui retourne tous les lignes de la table personne
+     * Test de la méthode testFindAll qui retourne toutes les lignes de la table personne
      * @throws SQLException
      * @throws ClassNotFoundException
      */
