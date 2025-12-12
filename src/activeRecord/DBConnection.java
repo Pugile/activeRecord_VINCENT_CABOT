@@ -19,7 +19,7 @@ public class DBConnection {
     private String portNumber = "3306";
     private static String dbname = "testpersonne";
     public static Connection instance;
-    private DBConnection() throws ClassNotFoundException, SQLException {
+    private DBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Properties connectionProps = new Properties();
         connectionProps.put("user", userName);
